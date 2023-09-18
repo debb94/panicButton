@@ -14,30 +14,26 @@ const GeneralInfoScreen = ({navigation}) => {
         const emailAddress = 'direccion@meditechhubcol.org'; // Reemplaza con tu dirección de correo electrónico
         Linking.openURL(`mailto:${emailAddress}`);
       };
-
-    const styles = StyleSheet.create({
-        sectionContainer: {
-            borderEndStartRadius: 20,
-            borderEndEndRadius: 20,
-        },
-        containerHeader:{
+      const styles = StyleSheet.create({
+        boldContainer:{
             display: 'flex',
-            alignItems: 'center',
-            height: height * 0.255,
-            backgroundColor: "#004aba",
-            // backgroundColor: "red"
+            flexDirection: 'column',
+            backgroundColor: '#004aba',
+            height: height
         },
-        
+        headerContainer:{
+            flex:1,
+            display: 'flex',
+            alignItems: 'center'
+        },
         header:{
             backgroundColor: "white",
-            // height: 400,
-            height: height*0.5,
+            height: 400,
             borderBottomLeftRadius: 450,
             borderBottomRightRadius: 450,
             width: 800,
             position: 'relative',
-            // top: -250,
-            top: -1*(height*0.3),
+            top: -250,
             zIndex:1,
             display: 'flex',
             justifyContent: "flex-end",
@@ -45,8 +41,6 @@ const GeneralInfoScreen = ({navigation}) => {
         },
         imageHeader:{
             width: width*0.55,
-            // width: 195,
-            // height: 80,
             height: width*0.22,
             marginBottom: 10
         },
@@ -56,13 +50,12 @@ const GeneralInfoScreen = ({navigation}) => {
             color: "#004aba",
             marginBottom: 18
         },
-        body: {
-            // height: height - (height*0.4),
-            height: height - (height * 0.215) - (height*0.200),
+        bodyContainer:{
+            flex:3,
+            backgroundColor: '#004aba',
             display: 'flex',
-            justifyContent: 'center',
-            alignItems: "center",
-            backgroundColor: "#004aba",
+            justifyContent:'center',
+            alignItems: 'center'
         },
         textBodyTitle:{
             fontSize: width* 0.04,
@@ -75,7 +68,6 @@ const GeneralInfoScreen = ({navigation}) => {
             fontSize: width* 0.035,
             fontWeight: "bold",
             color: "white",
-            // marginBottom: 20,
             textAlign: 'center',
             width: width*0.95
         },
@@ -87,59 +79,61 @@ const GeneralInfoScreen = ({navigation}) => {
             textAlign: 'center',
             width: width*0.9
         },
-        containerFooter:{
+        
+        footerContainer:{
+            flex:1,
             display: 'flex',
-            alignItems: 'center',
-            height:100,
-            backgroundColor: "#004aba",
-            position: "relative",
+            alignItems:'center'
+        },
+
+        footerContentBtns:{
+            display: 'flex',
+            marginTop: "4.5%",
+            width: width,
+            flexDirection: 'row',
+            height: "100%",
+            justifyContent: 'space-around',
+            alignItems: "flex-start"
         },
         footer:{
             backgroundColor: "#fff000",
             height: 400,
             width: 800,
             position: "relative",
-            bottom: -10,
+            bottom: -30,
             borderTopLeftRadius: 450,
             borderTopRightRadius: 450,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: "space-around",
             alignItems: "flex-start",
-
         },
         imgFooter:{
             width: 50,
             height: 50
         },
-        footerContentBtns:{
-            display: 'flex',
-            width: width,
-            flexDirection: 'row',
-            height: 85,
-            justifyContent: 'space-around',
-            alignItems: "flex-end"
-        },
     })
 
     return (
         <ScrollView >
-            <View style={styles.sectionContainer}>
-                <View style={styles.containerHeader}>
+            <View style={styles.boldContainer}>
+                <View style={styles.headerContainer}>
                     <View style={styles.header}>
                         <Image source={require("../assets/img/Logo_Meditech.png")} style={styles.imageHeader}></Image>
-                        <Text style={styles.textHeader}>Bienvenido{height}</Text>
+                        <Text style={styles.textHeader}>Bienvenido</Text>
                     </View>
                 </View>
-                <View style={styles.body}>
-                    <Text style={[styles.textBodyTitle,{marginBottom:20}]}>FUNDACIÓN PARA LA INVESTIGACIÓN YEDUCACIÓN MÉDICA Y TÉCNICA ENEMERGENCIAS Y DESASTRES</Text>
-                    <Text style={styles.textBodyYellow}>Somos una fundación educativa y deinvestigación con espíritu deemprendimiento social, dirigidos allenar brechas dentro de los aspectosde salud pública de países demedianos y bajos ingresos,especialmente en el áreaLatinoamericana.</Text>
-                    <Text style={styles.textBody}>Contacto:</Text>
-                    <Text style={styles.textBody}>Calle 7a # 44-103 Nueva Tequendama. Cali –Colombia.</Text>
-                    <Text style={styles.textBody} onPress={handleEmailLink} >direccion@meditechhubcol.org</Text>
-                    <Text style={styles.textBody} onPress={handleWebsiteLink}>www.fundacionmeditech.com</Text>
+                <View style={styles.bodyContainer}>
+                    <View style={styles.body}>
+                        <Text style={[styles.textBodyTitle,{marginBottom:20}]}>FUNDACIÓN PARA LA INVESTIGACIÓN YEDUCACIÓN MÉDICA Y TÉCNICA ENEMERGENCIAS Y DESASTRES</Text>
+                        <Text style={styles.textBodyYellow}>Somos una fundación educativa y deinvestigación con espíritu deemprendimiento social, dirigidos allenar brechas dentro de los aspectosde salud pública de países demedianos y bajos ingresos,especialmente en el áreaLatinoamericana.</Text>
+                        <Text style={styles.textBody}>Contacto:</Text>
+                        <Text style={styles.textBody}>Calle 7a # 44-103 Nueva Tequendama. Cali –Colombia.</Text>
+                        <Text style={styles.textBody} onPress={handleEmailLink} >direccion@meditechhubcol.org</Text>
+                        <Text style={styles.textBody} onPress={handleWebsiteLink}>www.fundacionmeditech.com</Text>
+                    </View>
                 </View>
-                <View style={styles.containerFooter}>
+                <View style={styles.footerContainer}>
                     <View style={styles.footer}>
                         <View style={styles.footerContentBtns}>
                             <Pressable onPress={()=>navigation.navigate('Home')}>
@@ -152,8 +146,7 @@ const GeneralInfoScreen = ({navigation}) => {
                     </View>
                 </View>
             </View>
-        </ScrollView>
-        
+        </ScrollView>  
     );
 }
 

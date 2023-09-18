@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, Button, Linking, Platform, StyleSheet, Image, Pressable, Dimensions, ScrollView } from 'react-native';
 
-const PanicButtonScreen = ({navigation}) => {
 
-    var width = Dimensions.get("window").width;
-    var height = Dimensions.get("window").height;
+var width = Dimensions.get("window").width;
+var height = Dimensions.get("window").height;
+
+const PanicButtonScreen = ({navigation}) => {
 
     const makeEmergencyCall = () => {
         const phoneNumber = '911'; // Número de emergencia
@@ -16,19 +17,19 @@ const PanicButtonScreen = ({navigation}) => {
         Linking.openURL(`tel://${phoneNumber}`);
         }
     };
+    
     const styles = StyleSheet.create({
-        sectionContainer: {
-            borderEndStartRadius: 20,
-            borderEndEndRadius: 20,
-        },
-        containerHeader:{
+        boldContainer:{
             display: 'flex',
-            alignItems: 'center',
-            height: height * 0.255,
-            backgroundColor: "#004aba",
-            // backgroundColor: "red"
+            flexDirection: 'column',
+            backgroundColor: '#004aba',
+            height: height
         },
-        
+        headerContainer:{
+            flex:1,
+            display: 'flex',
+            alignItems: 'center'
+        },
         header:{
             backgroundColor: "white",
             height: 400,
@@ -44,8 +45,6 @@ const PanicButtonScreen = ({navigation}) => {
         },
         imageHeader:{
             width: width*0.55,
-            // width: 195,
-            // height: 80,
             height: width*0.22,
             marginBottom: 10
         },
@@ -55,13 +54,12 @@ const PanicButtonScreen = ({navigation}) => {
             color: "#004aba",
             marginBottom: 18
         },
-        body: {
-            // height: height - (height*0.4),
-            height: height - (height * 0.255) - (height*0.21),
+        bodyContainer:{
+            flex:3,
+            backgroundColor: '#004aba',
             display: 'flex',
-            justifyContent: 'center',
-            alignItems: "center",
-            backgroundColor: "#004aba",
+            justifyContent:'center',
+            alignItems: 'center'
         },
         textBody:{
             fontSize: width* 0.04,
@@ -75,57 +73,56 @@ const PanicButtonScreen = ({navigation}) => {
             width: width*0.5,
             height: width*0.5,
         },
-        containerFooter:{
+        footerContainer:{
+            flex:1,
             display: 'flex',
-            alignItems: 'center',
-            height:100,
-            backgroundColor: "#004aba",
-            position: "relative",
+            alignItems:'center'
+        },
+
+        footerContentBtns:{
+            display: 'flex',
+            marginTop: "4.5%",
+            width: width,
+            flexDirection: 'row',
+            height: "100%",
+            justifyContent: 'space-around',
+            alignItems: "flex-start"
         },
         footer:{
             backgroundColor: "#fff000",
             height: 400,
             width: 800,
             position: "relative",
-            bottom: -10,
+            bottom: -30,
             borderTopLeftRadius: 450,
             borderTopRightRadius: 450,
             display: 'flex',
             flexDirection: 'row',
             justifyContent: "space-around",
             alignItems: "flex-start",
-
         },
         imgFooter:{
             width: 50,
             height: 50
         },
-        footerContentBtns:{
-            display: 'flex',
-            width: width,
-            flexDirection: 'row',
-            height: 85,
-            justifyContent: 'space-around',
-            alignItems: "flex-end"
-        },
     })
 
     return (
         <ScrollView >
-            <View style={styles.sectionContainer}>
-                <View style={styles.containerHeader}>
+            <View style={styles.boldContainer}>
+                <View style={styles.headerContainer}>
                     <View style={styles.header}>
                         <Image source={require("../assets/img/Logo_Meditech.png")} style={styles.imageHeader}></Image>
-                        <Text style={styles.textHeader}>Bienvenido{height}</Text>
+                        <Text style={styles.textHeader}>Bienvenido</Text>
                     </View>
                 </View>
-                <View style={styles.body}>
+                <View style={styles.bodyContainer}>
                     <Text style={styles.textBody}>Si te encuentras ante un caso de emergencia pulsa este botón!</Text>
                     <Pressable onPress={makeEmergencyCall}>
                         <Image source={require("../assets/img/boton_llamar.png")} style={styles.btnLlamar}></Image>
                     </Pressable>
                 </View>
-                <View style={styles.containerFooter}>
+                <View style={styles.footerContainer}>
                     <View style={styles.footer}>
                         <View style={styles.footerContentBtns}>
                             <Pressable onPress={()=>console.log("aca")}>
@@ -138,8 +135,7 @@ const PanicButtonScreen = ({navigation}) => {
                     </View>
                 </View>
             </View>
-        </ScrollView>
-        
+        </ScrollView>  
     );
 
 
