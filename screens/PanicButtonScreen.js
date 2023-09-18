@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, Button, Linking, Platform, StyleSheet, Image, Pressable, Dimensions, ScrollView } from 'react-native';
 
 
-var width = Dimensions.get("window").width;
-var height = Dimensions.get("window").height;
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 
 const PanicButtonScreen = ({navigation}) => {
 
