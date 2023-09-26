@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Dimensions, StyleSheet, ScrollView, Image, Pressable, Linking } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, ScrollView, Image, Pressable, Linking, SafeAreaView } from 'react-native';
 
 const GeneralInfoScreen = ({navigation}) => {
     var width = Dimensions.get("window").width;
@@ -115,38 +115,40 @@ const GeneralInfoScreen = ({navigation}) => {
     })
 
     return (
-        <ScrollView >
-            <View style={styles.boldContainer}>
-                <View style={styles.headerContainer}>
-                    <View style={styles.header}>
-                        <Image source={require("../assets/img/Logo_Meditech.png")} style={styles.imageHeader}></Image>
-                        <Text style={styles.textHeader}>Bienvenido</Text>
+        <SafeAreaView>
+            <ScrollView >
+                <View style={styles.boldContainer}>
+                    <View style={styles.headerContainer}>
+                        <View style={styles.header}>
+                            <Image source={require("../assets/img/Logo_Meditech.png")} style={styles.imageHeader}></Image>
+                            <Text style={styles.textHeader}>Bienvenido</Text>
+                        </View>
                     </View>
-                </View>
-                <View style={styles.bodyContainer}>
-                    <View style={styles.body}>
-                        <Text style={[styles.textBodyTitle,{marginBottom:20}]}>FUNDACIÓN PARA LA INVESTIGACIÓN YEDUCACIÓN MÉDICA Y TÉCNICA ENEMERGENCIAS Y DESASTRES</Text>
-                        <Text style={styles.textBodyYellow}>Somos una fundación educativa y deinvestigación con espíritu deemprendimiento social, dirigidos allenar brechas dentro de los aspectosde salud pública de países demedianos y bajos ingresos,especialmente en el áreaLatinoamericana.</Text>
-                        <Text style={styles.textBody}>Contacto:</Text>
-                        <Text style={styles.textBody}>Calle 7a # 44-103 Nueva Tequendama. Cali –Colombia.</Text>
-                        <Text style={styles.textBody} onPress={handleEmailLink} >direccion@meditechhubcol.org</Text>
-                        <Text style={styles.textBody} onPress={handleWebsiteLink}>www.fundacionmeditech.com</Text>
+                    <View style={styles.bodyContainer}>
+                        <View style={styles.body}>
+                            <Text style={[styles.textBodyTitle,{marginBottom:20}]}>FUNDACIÓN PARA LA INVESTIGACIÓN YEDUCACIÓN MÉDICA Y TÉCNICA ENEMERGENCIAS Y DESASTRES</Text>
+                            <Text style={styles.textBodyYellow}>Somos una fundación educativa y deinvestigación con espíritu deemprendimiento social, dirigidos allenar brechas dentro de los aspectosde salud pública de países demedianos y bajos ingresos,especialmente en el áreaLatinoamericana.</Text>
+                            <Text style={styles.textBody}>Contacto:</Text>
+                            <Text style={styles.textBody}>Calle 7a # 44-103 Nueva Tequendama. Cali –Colombia.</Text>
+                            <Text style={styles.textBody} onPress={handleEmailLink} >direccion@meditechhubcol.org</Text>
+                            <Text style={styles.textBody} onPress={handleWebsiteLink}>www.fundacionmeditech.com</Text>
+                        </View>
                     </View>
-                </View>
-                <View style={styles.footerContainer}>
-                    <View style={styles.footer}>
-                        <View style={styles.footerContentBtns}>
-                            <Pressable onPress={()=>navigation.navigate('Home')}>
-                                <Image source={require("../assets/img/Telefono_inactivo.png")} style={styles.imgFooter}></Image>
-                            </Pressable>
-                            <Pressable onPress={() => navigation.navigate('Info')}>
-                                <Image source={require("../assets/img/Quienes_Somos_activo.png")} style={styles.imgFooter}></Image>
-                            </Pressable>
+                    <View style={styles.footerContainer}>
+                        <View style={styles.footer}>
+                            <View style={styles.footerContentBtns}>
+                                <Pressable onPress={()=>navigation.navigate('Home')}>
+                                    <Image source={require("../assets/img/Telefono_inactivo.png")} style={styles.imgFooter}></Image>
+                                </Pressable>
+                                <Pressable onPress={() => navigation.navigate('Info')}>
+                                    <Image source={require("../assets/img/Quienes_Somos_activo.png")} style={styles.imgFooter}></Image>
+                                </Pressable>
+                            </View>
                         </View>
                     </View>
                 </View>
-            </View>
-        </ScrollView>  
+            </ScrollView>  
+        </SafeAreaView>
     );
 }
 

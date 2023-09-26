@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, Linking, Platform, StyleSheet, Image, Pressable, Dimensions, ScrollView } from 'react-native';
+import { View, Text, Button, Linking, Platform, StyleSheet, Image, Pressable, Dimensions, ScrollView, SafeAreaView } from 'react-native';
 
 
 const width = Dimensions.get("window").width;
@@ -8,14 +8,46 @@ const height = Dimensions.get("window").height;
 const PanicButtonScreen = ({navigation}) => {
 
     const makeEmergencyCall = () => {
-        const phoneNumber = '911'; // Número de emergencia
+        const phoneNumber = '3212360103'; // Número de emergencia
         if (Platform.OS === 'android') {
-        // Para Android, verifica los permisos de llamada telefónica
-        Linking.openURL(`tel:${phoneNumber}`);
+            // Para Android, verifica los permisos de llamada telefónica
+            Linking.openURL(`tel:${phoneNumber}`);
         } else if (Platform.OS === 'ios') {
-        // Para iOS, no es necesario solicitar permisos previamente
-        Linking.openURL(`tel://${phoneNumber}`);
+            // Para iOS, no es necesario solicitar permisos previamente
+            Linking.openURL(`tel://${phoneNumber}`);
         }
+        const startTime = new Date();
+        fetch("https://webtronick.com/", {
+            method: 'GET',
+            redirect: 'follow'
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log(result)
+            let endTime = new Date();
+            let responseTime = endTime - startTime;
+            console.log("respuesta en "+ responseTime+ "ms");
+        })
+        .catch(error => console.log('error', error));
+        // .then(response => response.text())
+        // // .then(response => response.json())
+        // .then(data=>{
+        //     let endTime = new Date();
+        //     const responseTime = endTime - startTime;
+        //     console.log(`Tiempo de respuesta: ${responseTime} ms`);
+        //     fetch("https://webtronick.com")
+        //     .then(response => response.json())
+        //     // .then(response => response.json())
+        //     .then(data=>{
+        //         console.log("success");
+        //     })
+        //     .catch(error=>{
+        //         console.log(error);
+        //     })
+        // })
+        // .catch(error=>{
+        //     console.log(error);
+        // })
     };
     
     const styles = StyleSheet.create({
@@ -108,34 +140,37 @@ const PanicButtonScreen = ({navigation}) => {
     })
 
     return (
-        <ScrollView >
-            <View style={styles.boldContainer}>
-                <View style={styles.headerContainer}>
-                    <View style={styles.header}>
-                        <Image source={require("../assets/img/Logo_Meditech.png")} style={styles.imageHeader}></Image>
-                        <Text style={styles.textHeader}>Bienvenido</Text>
+        <SafeAreaView>
+            <ScrollView >
+                <View style={styles.boldContainer}>
+                    <View style={styles.headerContainer}>
+                        <View style={styles.header}>
+                            <Image source={require("../assets/img/Logo_Meditech.png")} style={styles.imageHeader}></Image>
+                            <Text style={styles.textHeader}>Bienvenido</Text>
+                        </View>
                     </View>
-                </View>
-                <View style={styles.bodyContainer}>
-                    <Text style={styles.textBody}>Si te encuentras ante un caso de emergencia pulsa este botón!</Text>
-                    <Pressable onPress={makeEmergencyCall}>
-                        <Image source={require("../assets/img/boton_llamar.png")} style={styles.btnLlamar}></Image>
-                    </Pressable>
-                </View>
-                <View style={styles.footerContainer}>
-                    <View style={styles.footer}>
-                        <View style={styles.footerContentBtns}>
-                            <Pressable onPress={()=>console.log("aca")}>
-                                <Image source={require("../assets/img/Telefono_activo.png")} style={styles.imgFooter}></Image>
-                            </Pressable>
-                            <Pressable onPress={() => navigation.navigate('Info')}>
-                                <Image source={require("../assets/img/Quienes_Somos_inactivo.png")} style={styles.imgFooter}></Image>
-                            </Pressable>
+                    <View style={styles.bodyContainer}>
+                        <Text style={styles.textBody}>Si te encuentras ante un caso de emergencia pulsa este botón!</Text>
+                        <Pressable onPress={makeEmergencyCall}>
+                            <Image source={require("../assets/img/boton_llamar.png")} style={styles.btnLlamar}></Image>
+                        </Pressable>
+                    </View>
+                    <View style={styles.footerContainer}>
+                        <View style={styles.footer}>
+                            <View style={styles.footerContentBtns}>
+                                <Pressable onPress={()=>console.log("aca")}>
+                                    <Image source={require("../assets/img/Telefono_activo.png")} style={styles.imgFooter}></Image>
+                                </Pressable>
+                                <Pressable onPress={() => navigation.navigate('Info')}>
+                                    <Image source={require("../assets/img/Quienes_Somos_inactivo.png")} style={styles.imgFooter}></Image>
+                                </Pressable>
+                            </View>
                         </View>
                     </View>
                 </View>
-            </View>
-        </ScrollView>  
+            </ScrollView>  
+        </SafeAreaView>
+        
     );
 
 
