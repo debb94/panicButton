@@ -1,14 +1,70 @@
-import React from 'react';
-import { View, Text, Button, Linking, Platform, StyleSheet, Image, Pressable, Dimensions, ScrollView, SafeAreaView } from 'react-native';
-
+import React, { useContext, useEffect, useState } from 'react';
+import { View, Text,Linking, Platform, StyleSheet, Image, Pressable, Dimensions, ScrollView, SafeAreaView, Alert } from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
+import { LoaderContext } from '../src/context/LoaderContext';
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 const PanicButtonScreen = ({navigation}) => {
+    const [location, setLocation] = useState(null);
+    const {loader, innerSetLoader} = useContext(LoaderContext);
+    const [phoneNumber, setPhoneNumber] = useState('3212360103');
+
+    useEffect(()=>{
+        getLocations();
+    },[])
+
+
+    const getCityFromLocation = async (latitude, longitude) => {
+        try {
+            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&zoom=5&lat=${latitude}&lon=${longitude}`);
+            const data = await response.json();
+            const { city, country, state } = data.address;
+            innerSetLoader(false);
+            return { city, country, state };
+        } catch (error) {
+            innerSetLoader(false);
+            console.error('Error getting city from location:', error);
+            return null;
+        }
+    };
+
+
+    const getLocations = ()=>{
+        innerSetLoader(true);
+        Geolocation.getCurrentPosition(async (position) => {
+            const { latitude, longitude } = position.coords;
+            const locationData = await getCityFromLocation(latitude, longitude);
+            if (locationData) {
+                const { city, country, state } = locationData;
+                console.log("location Data",locationData, state);
+                switch (`${state}, ${country}`) {
+                    case 'Huila, Colombia':
+                        setPhoneNumber('000000000');
+                    break;
+                    case 'Antioquia, Colombia':
+                        setPhoneNumber('111111111');
+                    break;
+                    case 'Magdalena, Colombia':
+                        setPhoneNumber('3158211394');
+                    break;
+                    default:
+                        Alert.alert('No se encontró un número para esta ubicación');
+                    break;
+                }
+            } else {
+                Alert.alert('No se pudo obtener la ubicación');
+            }
+        },
+        (error) => {
+            // See error code charts below.
+            console.log("error", error.code, error.message);
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 })
+    }
 
     const makeEmergencyCall = () => {
-        const phoneNumber = '3212360103'; // Número de emergencia
         if (Platform.OS === 'android') {
             // Para Android, verifica los permisos de llamada telefónica
             Linking.openURL(`tel:${phoneNumber}`);
@@ -29,25 +85,6 @@ const PanicButtonScreen = ({navigation}) => {
             console.log("respuesta en "+ responseTime+ "ms");
         })
         .catch(error => console.log('error', error));
-        // .then(response => response.text())
-        // // .then(response => response.json())
-        // .then(data=>{
-        //     let endTime = new Date();
-        //     const responseTime = endTime - startTime;
-        //     console.log(`Tiempo de respuesta: ${responseTime} ms`);
-        //     fetch("https://webtronick.com")
-        //     .then(response => response.json())
-        //     // .then(response => response.json())
-        //     .then(data=>{
-        //         console.log("success");
-        //     })
-        //     .catch(error=>{
-        //         console.log(error);
-        //     })
-        // })
-        // .catch(error=>{
-        //     console.log(error);
-        // })
     };
     
     const styles = StyleSheet.create({

@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PanicButtonScreen from './screens/PanicButtonScreen';
 import GeneralInfoScreen from './screens/GeneralInfoScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {LoaderContextProvider } from './src/context/LoaderContext';
 
 function App(): JSX.Element {
 
@@ -21,10 +22,12 @@ function App(): JSX.Element {
     <GestureHandlerRootView style={{flex:1}}>
       <NavigationContainer>
         {/* <SafeAreaView> */}
+        <LoaderContextProvider>
           <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={PanicButtonScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="Info" component={GeneralInfoScreen} options={{ headerShown: false }} />
           </Stack.Navigator>
+        </LoaderContextProvider>
         {/* </SafeAreaView> */}
       </NavigationContainer>
     </GestureHandlerRootView>
